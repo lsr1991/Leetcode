@@ -2,7 +2,7 @@ package io.github.lsr1991.leetcode.util;
 
 import java.util.Arrays;
 import java.util.Random;
-
+@Deprecated
 public abstract class TestCase<Input, Output> {
 	public void test(int num) {
 		boolean isPassed = true;
