@@ -9,6 +9,9 @@ import java.util.Random;
 //
 public class MergeTwoSortedLists extends TestCase<ListNode, ListNode>{
 
+	/**
+	 * this solution is ugly, use solution2 instead!
+	 */
 	@Override
 	public ListNode<Integer>[] solution(ListNode[] input) {
 		ListNode<Integer> list1 = input[0];
@@ -52,6 +55,32 @@ public class MergeTwoSortedLists extends TestCase<ListNode, ListNode>{
 		return res;
 	}
 	
+	public ListNode<Integer>[] solution2(ListNode[] input) {
+		ListNode<Integer> list1 = input[0];
+		ListNode<Integer> list2 = input[1];
+		ListNode<Integer> dummy = new ListNode<Integer>(0);
+		ListNode<Integer>[] res = new ListNode[1];
+		res[0] = dummy;
+		while (list1 != null && list2 != null) {
+			if (list1.val > list2.val) {
+				dummy.next = list2;
+				list2 = list2.next;
+			} else {
+				dummy.next = list1;
+				list1 = list1.next;
+			}
+			dummy = dummy.next;
+		}
+		if (list1 != null) {
+			dummy.next = list1;
+		}
+		if (list2 != null) {
+			dummy.next = list2;
+		}
+		res[0] = res[0].next;
+		return res;
+	}
+	
 	@Override
 	public ListNode<Integer>[] correct(ListNode[] input) {
 		return null;
@@ -61,11 +90,11 @@ public class MergeTwoSortedLists extends TestCase<ListNode, ListNode>{
 	public ListNode<Integer>[] generateInput(Random r) {
 		int n = 10;
 		/* case 1 */
-//		int[] values = {3, 4, 7, 8, 12};
-//		int[] values2 = {1, 2, 5, 10, 11};
+		int[] values = {3, 4, 7, 8, 12};
+		int[] values2 = {1, 2, 5, 10, 11};
 		/* case 2 */
-		int[] values = {1};
-		int[] values2 = {2};
+//		int[] values = {1};
+//		int[] values2 = {2};
 //		int[] values = {1};
 		ListNode<Integer> head = new ListNode<Integer>(values[0]); 
 		ListNode<Integer> tmp = head;
@@ -93,7 +122,7 @@ public class MergeTwoSortedLists extends TestCase<ListNode, ListNode>{
 		MergeTwoSortedLists s = new MergeTwoSortedLists();
 		ListNode[] input = s.generateInput(new Random());
 		System.out.println(Arrays.toString(input));
-		System.out.println(Arrays.toString(s.solution(input)));
+		System.out.println(Arrays.toString(s.solution2(input)));
 	}
 
 }
