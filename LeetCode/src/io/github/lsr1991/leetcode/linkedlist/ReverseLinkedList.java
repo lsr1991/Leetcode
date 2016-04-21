@@ -1,4 +1,4 @@
-package io.github.lsr1991.leetcode;
+package io.github.lsr1991.leetcode.linkedlist;
 
 import io.github.lsr1991.leetcode.util.ListNode;
 import io.github.lsr1991.leetcode.util.TestCase;
@@ -9,24 +9,31 @@ import java.util.Iterator;
 import java.util.Random;
 
 //
-public class RemoveDuplicatedLinkedListElement {
+public class ReverseLinkedList {
 
 	public static ListNode<Integer> solution(ListNode<Integer> input) {
-		if (input == null || input.next == null) {
-			return input;
+		ListNode<Integer> dummy = new ListNode<Integer>(0);
+		ListNode<Integer> tmp = null;
+		while (input != null) {
+			tmp = input.next;
+			input.next = dummy.next;
+			dummy.next = input;
+			input = tmp;
 		}
-		ListNode<Integer> res = input;
-		ListNode<Integer> pos = input.next;
-		ListNode<Integer> pre = input;
-		while (pos != null) {
-			if (pos.val == pre.val) {
-				pre.next = pos.next;
-			} else {
-				pre = pos;
-			}
-			pos = pos.next;
+		return dummy.next;
+	}
+	
+	public static ListNode<Integer> solution2(ListNode<Integer> input) {
+		return doReverse(input, null);
+	}
+	
+	private static ListNode<Integer> doReverse(ListNode<Integer> head, ListNode<Integer> newHead) {
+		if (head == null) {
+			return newHead;
 		}
-		return res;
+		ListNode<Integer> tmp = head.next;
+		head.next = newHead;
+		return doReverse(tmp, head);
 	}
 
 	public ListNode<Integer> correct(ListNode<Integer> input, int val) {
@@ -39,7 +46,7 @@ public class RemoveDuplicatedLinkedListElement {
 			test[i].printInput();
 			test[i].printOutput();
 			System.out.println("My output:");
-			System.out.println(solution(input));
+			System.out.println(solution2(input));
 		}
 	}
 
@@ -65,8 +72,8 @@ public class RemoveDuplicatedLinkedListElement {
 
 	public static void main(String[] args) {
 		TestData[] datas = new TestData[4];
-		Integer[] in1 = { 1, 2, 4, 4, 4, 5, 6, 6 };
-		Integer[] out11 = { 1, 2, 4, 5, 6 };
+		Integer[] in1 = { 1, 2, 4, 5, 6, 6 };
+		Integer[] out11 = { 6,6,5,4,2,1 };
 		datas[0] = new TestData(in1, out11);
 		Integer[] in2 = { 1 };
 		Integer[] out2 = { 1 };
@@ -74,8 +81,8 @@ public class RemoveDuplicatedLinkedListElement {
 		Integer[] in3 = {};
 		Integer[] out3 = {};
 		datas[2] = new TestData(in3, out3);
-		Integer[] in4 = { 1, 1 };
-		Integer[] out4 = { 1 };
+		Integer[] in4 = { 1, 2 };
+		Integer[] out4 = { 2,1 };
 		datas[3] = new TestData(in4, out4);
 		runTestCase(datas);
 	}

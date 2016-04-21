@@ -1,4 +1,4 @@
-package io.github.lsr1991.leetcode;
+package io.github.lsr1991.leetcode.dynamicprogramming;
 import io.github.lsr1991.leetcode.util.TestCase;
 
 import java.util.Arrays;
