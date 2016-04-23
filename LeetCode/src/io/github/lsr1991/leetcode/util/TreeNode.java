@@ -1,5 +1,8 @@
 package io.github.lsr1991.leetcode.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -9,6 +12,40 @@ public class TreeNode {
 	public int val;
 	public TreeNode(int x) {
 		val = x;
+	}
+	
+	public String toString() {
+		List<Integer> a = new ArrayList<Integer>();
+		LinkedList<TreeNode> q = new LinkedList<TreeNode>();
+		q.add(this);
+		while (!q.isEmpty()) {
+			TreeNode tmp = q.removeFirst();
+			if (tmp != null) {
+//				if (tmp.left == null && tmp.right == null) {
+//					a.add(tmp.val);
+//					continue;
+//				}
+				a.add(tmp.val);
+				q.add(tmp.left);
+				q.add(tmp.right);
+			} else {
+				if (!q.isEmpty()) {
+					a.add(null);
+				}
+			}
+		}
+		return Arrays.toString(a.toArray()); 
+	}
+	
+	public static void main(String[] args) {
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(4);
+		root.right = new TreeNode(7);
+		root.left.left = new TreeNode(3);
+		root.left.left.left = new TreeNode(-1);
+		root.right.left = new TreeNode(2);
+		root.right.left.left = new TreeNode(9);
+		System.out.println(root);
 	}
 	
 	public static void preorderTraversalTree(TreeNode root, List<Integer> resInList) {
@@ -37,6 +74,8 @@ public class TreeNode {
 		postorderTraversalTree(root.right, resInList);
 		resInList.add(root.val);
 	}
+	
+	
 	
 	public static TreeNode generateRandomTree(Integer[] a, Random r) {
 		if (a.length == 0) return null;
