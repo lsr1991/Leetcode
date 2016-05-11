@@ -1,4 +1,4 @@
-package io.github.lsr1991.leetcode;
+package io.github.lsr1991.leetcode.tree;
 
 import io.github.lsr1991.leetcode.util.TestCase;
 import io.github.lsr1991.leetcode.util.TreeNode;
